@@ -4,5 +4,18 @@ from django.contrib import admin
 
 from rango.models import Category, Page
 
-admin.site.register(Category)
-admin.site.register(Page)
+class PageInline(admin.TabularInline):
+    model = Page
+    extra = 0
+
+class CategoryAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,                  {'fields': ['name','views','likes']}),
+        ]
+    inlines = [PageInline]
+
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'url', 'views')
+
+admin.site.register(Category,CategoryAdmin)
+admin.site.register(Page,PageAdmin)
