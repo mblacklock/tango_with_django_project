@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <h1>Rango says...</h1>
+		
+		<div>
+		{% if page %}
+			<h1>{{ page.title }}</h1>
+			URL: <a href="{{ page.url }}">{{ page.url }}</a> </br>
+			</br>
+			Views: {{ page.views }}
+		{% else %}
+			The specified page does not exist!
+		{% endif %}
+		</br>
+		</div>
+		
+		<div>
+			<a href="{% url 'rango:index' %}">Index</a><br />
+			<img src="{% static "rango/images/rango.jpg" %}"
+				alt="Rango" />
+		</div>
+    </body>
+
+</html>
