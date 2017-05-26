@@ -1,0 +1,10 @@
+create DB in postgres 
+	createdb -U postgress dbname
+		pwd is my master pwd
+
+Link to local db
+	set DATABASE_URL=postgres://postgres:mypassword@127.0.0.1:5432/dbname
+
+or
+
+http://grokbase.com/t/gg/django-users/13574x412r/connecting-problems-to-a-db-using-psycopg2
