@@ -1,33 +1,17 @@
-<!DOCTYPE html>
-
+{% extends 'rango/base.html' %}
 {% load static %}
 
-<html>
+{% block title_block %}
+	{{ page.title }}
+{% endblock %}
 
-    <head>
-        <title>Rango</title>
-    </head>
-
-    <body>
-        <h1>Rango says...</h1>
-		
-		<div>
-		{% if page %}
-			<h1>{{ page.title }}</h1>
-			URL: <a href="{{ page.url }}">{{ page.url }}</a> </br>
-			</br>
-			Views: {{ page.views }}
-		{% else %}
-			The specified page does not exist!
-		{% endif %}
+{% block body_block %}
+	{% if page %}
+		<h1>{{ page.title }}</h1>
+		URL: <a href="{{ page.url }}">{{ page.url }}</a> </br>
 		</br>
-		</div>
-		
-		<div>
-			<a href="{% url 'rango:index' %}">Index</a><br />
-			<img src="{% static "rango/images/rango.jpg" %}"
-				alt="Rango" />
-		</div>
-    </body>
-
-</html>
+		Views: {{ page.views }}
+	{% else %}
+		The specified page does not exist!
+	{% endif %}
+{% endblock %}
