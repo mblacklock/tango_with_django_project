@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^page/(?P<page_name_slug>[\w\-]+)/$',views.show_page,name='show_page'),
     url(r'^add_category/$', views.add_category,name='add_category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/add_page/',views.add_page,name='add_page'),
+    url(r'^register/$', views.register,name='register'),
 ]
