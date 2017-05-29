@@ -7,7 +7,11 @@
 
 {% block body_block %}
 	<div>
-		hello world! <br />
+		{% if user.is_authenticated %}
+			<h1>howdy {{ user.username }}! <br /></h1>
+		{% else %}
+			<h1>hello world! <br /></h1>
+		{% endif %}
 	</div>
 	
 	<div>

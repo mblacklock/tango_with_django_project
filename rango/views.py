@@ -1,10 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.defaultfilters import slugify
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+
 
 from rango.models import Category, Page
-from rango.forms import CategoryForm, PageForm, UserProfileForm, UserForm
+from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 
 # Create your views here.
 
@@ -32,7 +36,6 @@ def show_category(request, category_name_slug):
             'pages': pages,
             'category': category
             }
-
     except:
         context = {
             'pages': None,
@@ -55,6 +58,7 @@ def show_page(request, page_name_slug):
             }
     return render(request, 'rango/page.html', context)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
 
@@ -73,6 +77,7 @@ def add_category(request):
 
     return render(request, 'rango/add_category.html', {'form':form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -116,13 +121,13 @@ def register(request):
             profile.user = user
 
             if 'picture' in request.FILES:
-                profile.picture = requset.FILES['picture']
+                profile.picture = request.FILES['picture']
 
             profile.save()
 
             registered = True
         else:
-            print(user_forms.errors, profile_form.errors)
+            print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
@@ -132,3 +137,36 @@ def register(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'registered': registered})
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('rango:index'))
+            else:
+                context = {'login_error': 'disabled'}
+        else:
+            print("Invalid login: {0}, {1}".format(username, password))
+            if User.objects.filter(username=username).exists():
+                context = {'login_error': 'pass'}
+            else:
+                context = {'login_error': 'user'}
+    else:
+        context = {}
+        
+    return render(request, 'rango/login.html', context)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('rango:index'))
+
+@login_required
+def restricted(request):
+    return render(request, 'rango/restricted.html',)
