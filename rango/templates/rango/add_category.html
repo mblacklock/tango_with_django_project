@@ -5,9 +5,15 @@
 	Add Category
 {% endblock %}
 
+{% block nav-add-cat %}
+	<li class="nav-item active">
+		<a class="nav-link" href="{% url 'rango:add_category' %}">New Category<span class="sr-only">(current)</span></a>
+	</li>
+{% endblock %}
+
 {% block body_block %}
-	<h1>Add Category</h1>
-	<form id="category_form" method="post" action="{% url 'rango:add_category'%}">
+	<h1>Add New Category</h1>
+	<form role=form" id="category_form" method="post" action="{% url 'rango:add_category'%}">
 		{% csrf_token %}
 		{% if slug_exists %}
 			<strong>Category already exists.</strong> Note: names are case insensitive.</br></br>
@@ -20,6 +26,7 @@
 			{{ field.help_text }}
 			{{ field }}
 		{% endfor %}
-		<input type="submit" name="submit" value="Create Category" />
+
+		<button class="btn btn-primary" type="submit" name="submit">Create Category</button>
 	</form>
 {% endblock %}

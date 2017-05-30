@@ -1,15 +1,24 @@
 {% extends 'rango/base.html' %}
 {% load static %}
+{% load bootstrap_toolkit %}
 
 {% block title_block %}
 	Register
 {% endblock %}
 
+{% block nav-register %}
+	<li class="nav-item active">
+		<a class="nav-link" href="{% url 'registration_register' %}">Register<span class="sr-only">(current)</span></a>
+	</li>
+{% endblock %}
+
 {% block body_block %}
-	<h1>Register Here</h1>
-	<form method="post" action=".">
+	<form id="registration_form" method="post" action=".">
+	<h2 class="form-signin-heading">Register Here</h2>
 		{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Submit" />
+		{{ form|as_bootstrap }}
+		<br/>
+		<button class="btn btn-primary" type="submit" 
+			value="Submit" />Register</button>
 	</form>
 {% endblock %}

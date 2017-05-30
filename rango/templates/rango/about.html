@@ -5,7 +5,13 @@
 	About
 {% endblock %}
 
+{% block nav-about %}
+	<li class="nav-item active">
+		<a class="nav-link" href="{% url 'rango:about' %}">About<span class="sr-only">(current)</span></a>
+	</li>
+{% endblock %}
+
 {% block body_block %}
-	This tutorial has been put together by Rango <br />
+	This tutorial has been put together by Rango<br />
 	You have visited this site {{ visits }} time(s)
 {% endblock %}

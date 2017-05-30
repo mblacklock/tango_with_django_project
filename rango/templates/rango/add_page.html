@@ -11,20 +11,19 @@
 	{% else %}
 		<h1>Add a page</h1>
 		<div>
-			<form id="page_form" method="post" action="{% url 'rango:add_page' category.slug %}">
+			<form role="form" id="page_form" method="post" action="{% url 'rango:add_page' category.slug %}">
+				<h2 class="form-signin-heading">Add a page to {{ category.name }}</h2>
 				{% csrf_token %}
-				{% if slug_exists %}
-					<strong>Category already exists.</strong> Note: names are case insensitive.</br></br>
-				{% endif %}
 				{% for hidden in form.hidden_fields %}
 					{{ hidden }}
 				{% endfor %}
 				{% for field in form.visible_fields %}
 					{{ field.errors }}
-					{{ field.help_text }}
-					{{ field }}
+					{{ field.help_text }}<br/>
+					{{ field }}<br/>
 				{% endfor %}
-				<input type="submit" name="submit" value="Create Page" />
+				<br/>
+				<button class="btn btn-primary" type="submit" name="submit">Create Page</button>
 			</form>
 		</div>	
 	{% endif %}

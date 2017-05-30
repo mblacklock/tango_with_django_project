@@ -5,6 +5,12 @@
 	Register
 {% endblock %}
 
+{% block nav-register %}
+	<li class="nav-item active">
+		<a class="nav-link" href="{% url 'registration_register' %}">Home<span class="sr-only">(current)</span></a>
+	</li>
+{% endblock %}
+
 {% block body_block %}
 	<h1>Registration Page</h1> <br />
 	{% if registered %}
