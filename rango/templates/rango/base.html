@@ -15,11 +15,11 @@
 			{% block title_block %}How to Tango with Django!{% endblock %}
 		</title>
 		<!-- Bootstrap core CSS -->
-		<link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css"
+		<link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css"
 			rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<link href=
-			"http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css"
+			"https://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css"
 				rel="stylesheet">
 	</head>
 	
@@ -33,37 +33,47 @@
 			
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
-				  {% block nav-home %}
-					  <li class="nav-item">
-						<a class="nav-link" href="{% url 'rango:index' %}">Home</a>
-					  </li>
-				  {% endblock %}
-				  {% block nav-about %}
-					  <li class="nav-item">
-						<a class="nav-link" href="{% url 'rango:about' %}">About</a>
-					  </li>
-				  {% endblock %}
-				  {% if user.is_authenticated %}
-				  {% block nav-add-cat %}
-					  <li class="nav-item">
-						<a class="nav-link" href="{% url 'rango:add_category' %}">New Category</a>
-					  </li>
-				  {% endblock %}
-				  <li class="nav-item">
-					<a class="nav-link" href="{% url 'auth_logout' %}?next=/rango/">Logout</a>
-				  </li>
-				  {% else %}
-				  {% block nav-register %}
-				  <li class="nav-item">
-					<a class="nav-link" href="{% url 'registration_register' %}">Register</a>
-				  </li>
-				  {% endblock %}
-				  {% block nav-login %}
-				  <li class="nav-item">
-					<a class="nav-link" href="{% url 'auth_login' %}">Login</a>
-				  </li>
-				  {% endblock %}
-				  {% endif %}
+					{% block nav-home %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'rango:index' %}">Home</a>
+						</li>
+					{% endblock %}
+					{% block nav-about %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'rango:about' %}">About</a>
+						</li>
+					{% endblock %}
+					{% if user.is_authenticated %}
+						{% block nav-add-cat %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'rango:add_category' %}">New Category</a>
+							</li>
+						{% endblock %}
+						{% block nav-profile %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'rango:profile' user.username %}">Profile</a>
+							</li>
+						{% endblock %}
+						{% block nav-list-profile %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'rango:list_profiles' %}">List Profiles</a>
+							</li>
+						{% endblock %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'auth_logout' %}?next=/rango/">Logout</a>
+						</li>
+					{% else %}
+						{% block nav-register %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'registration_register' %}">Register</a>
+							</li>
+						{% endblock %}
+						{% block nav-login %}
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+							</li>
+						{% endblock %}
+					{% endif %}
 				</ul>
 			 </div>
 		</nav>

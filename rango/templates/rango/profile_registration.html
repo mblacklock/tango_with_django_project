@@ -1,0 +1,25 @@
+{% extends 'rango/base.html' %}
+{% load static %}
+
+{% block title_block %}
+	Registration - Profile
+{% endblock %}
+
+{% block nav-register %}
+	<li class="nav-item active">
+		<a class="nav-link" href="{% url 'registration_register' %}">Home<span class="sr-only">(current)</span></a>
+	</li>
+{% endblock %}
+
+{% block body_block %}
+	<h1>Registration - Add profile</h1> <br />
+		<form method="post" action="."
+			enctype="multipart/form-data">
+			
+			{% csrf_token %}
+		
+			{{ form.as_p }}
+		
+			<input type="submit" value="Submit" />
+		</form>	
+{% endblock %}
